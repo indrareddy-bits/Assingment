@@ -1,0 +1,26 @@
+Username and groups:
+whoami -> codespace
+groups -> codespace pipx python oryx golang docker sdkman rvm php conda nvs nvm hugo ssh
+
+Current shell:
+echo "$SHELL" -> /bin/bash
+
+Current working directory:
+pwd -> /workspaces/Assingment
+
+Workspace listing (ls -ls):
+total 24
+4 -rw-rw-rw-  1 codespace root        12 Jul  3 15:56 README.md
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 16:02 q1
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 16:02 q2
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 16:02 q3
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 16:02 q4
+4 drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 16:02 q5
+
+Network connectivity verification:
+curl -s --max-time 10 https://youtube.com -> no output (request did not print "Network: youtube.com reachable")
+
+Brief observations (3-5 lines):
+- The user is `codespace` and belongs to multiple development groups, so privileges are typical for a dev environment.
+- The default shell is `/bin/bash` and the current working directory is the repository root `/workspaces/Assingment`.
+- The workspace contains q1..q5 directories and a README; network check to youtube.com did not report reachability in this environment.

@@ -1,0 +1,27 @@
+Created files and links:
+original.txt -> contains: "Linux link test file"
+hardlink.txt -> hard link to `original.txt`
+symlink.txt -> symbolic link pointing to `original.txt`
+
+ls -li output:
+total 8
+1310805 -rw-rw-rw- 2 codespace codespace 21 Jul  3 16:09 hardlink.txt
+1310805 -rw-rw-rw- 2 codespace codespace 21 Jul  3 16:09 original.txt
+1310806 lrwxrwxrwx 1 codespace codespace 12 Jul  3 16:09 symlink.txt -> original.txt
+
+stat outputs (summary):
+- `original.txt` and `hardlink.txt` share inode `1310805` and have `Links: 2` (same data, different directory entries).
+- `symlink.txt` is inode `1310806` and is a symbolic link that points to `original.txt`.
+
+Content verification:
+cat original.txt -> Linux link test file
+cat hardlink.txt -> Linux link test file
+cat symlink.txt -> Linux link test file
+
+After removing `original.txt`:
+ls -li shows `hardlink.txt` remains with inode `1310805` and content intact.
+Attempting to `cat symlink.txt` produced "No such file or directory" because the symlink pointed to the removed target.
+
+Conclusions:
+- Hard links share the same inode as the original file and remain valid after the original filename is removed because the data is referenced by the link count.
+- Symbolic links reference the pathname and break if the target is removed.

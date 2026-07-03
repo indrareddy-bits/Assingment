@@ -1,0 +1,22 @@
+Commands and observations:
+Created `app.log` with sample content: "sample log line"
+
+Open files and `lsof` output (truncated):
+COMMAND     PID   TID TASKCMD        USER   FD      TYPE             DEVICE  SIZE/OFF    NODE NAME
+... (truncated) ...
+
+After `exec 3<app.log` the shell had fd 3 opened for `app.log` (see `lsof -p $$` and `/proc/$$/fd`).
+
+/proc/$$/fd listing showed descriptor `3 -> /workspaces/Assingment/q4/app.log`.
+
+Redirection tests:
+`ls -l > stdout.txt` created `stdout.txt` with directory listing.
+`ls /not_a_real_path 2> stderr.txt` captured the error output in `stderr.txt`.
+`(ls -l && ls /not_a_real_path) > combined.txt 2>&1` captured both stdout and stderr into `combined.txt`.
+
+Resource limits:
+`ulimit -a` displayed various limits; notable values include `open files (-n) 524288` and `max user processes (-u) unlimited`.
+
+Conclusions:
+- File descriptor `3` was opened to `app.log` with `exec`, visible in `/proc/<pid>/fd` and `lsof`.
+- Standard output and error redirection behave as expected: `>` writes stdout, `2>` writes stderr, and `> file 2>&1` merges both streams.

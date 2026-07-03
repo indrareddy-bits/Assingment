@@ -1,0 +1,41 @@
+Directory structure created:
+secure_workspace/
+├─ docs/
+│  └─ plan.txt
+├─ src/
+│  └─ app.txt
+└─ logs/
+   └─ activity.log
+
+Permissions and ownership (observed outputs):
+After creation (ls -ld secure_workspace secure_workspace/*):
+drwxrwxrwx+ 5 codespace codespace 4096 Jul  3 16:05 secure_workspace
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 16:05 secure_workspace/docs
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 16:05 secure_workspace/logs
+drwxrwxrwx+ 2 codespace codespace 4096 Jul  3 16:05 secure_workspace/src
+
+After `chmod 750` on directories (ls -ld ...):
+drwxr-x---+ 5 codespace codespace 4096 Jul  3 16:05 secure_workspace
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 16:05 secure_workspace/docs
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 16:05 secure_workspace/logs
+drwxr-x---+ 2 codespace codespace 4096 Jul  3 16:05 secure_workspace/src
+
+File permissions (ls -l secure_workspace/*):
+secure_workspace/docs:
+total 0
+-rw-r----- 1 codespace codespace 0 Jul  3 16:05 plan.txt
+
+secure_workspace/logs:
+total 0
+-rw-rw-rw- 1 codespace codespace 0 Jul  3 16:05 activity.log
+
+secure_workspace/src:
+total 0
+-rw-r----- 1 codespace codespace 0 Jul  3 16:05 app.txt
+
+Umask value:
+umask -> 0022
+
+Explanation of how permissions protect data:
+- Directories set to `750` allow the owner full access, group read/execute, and no access for others; this restricts listing and traversal to intended users.
+- Files set to `640` (owner read/write, group read, others none) prevent unauthorized users from reading or modifying project files.

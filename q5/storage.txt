@@ -1,0 +1,37 @@
+lsblk output (truncated):
+NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+loop0     7:0    0 63.8M  1 loop 
+... (truncated) ...
+sda       8:0    0   30G  0 disk 
+├─sda1    8:1    0 29.9G  0 part /workspaces/.codespaces/shared
+sdb       8:16   0   45G  0 disk 
+└─sdb1    8:17   0   45G  0 part /tmp
+sdc       8:32   0  512G  0 disk 
+
+mount | head -5 (truncated):
+overlay on / type overlay (rw,relatime,lowerdir=...)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev type tmpfs (rw,nosuid,size=65536k,mode=755,inode64)
+
+Disk usage (`df -h`):
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          32G  9.6G   21G  33% /
+tmpfs            64M     0   64M   0% /dev
+shm              64M     0   64M   0% /dev/shm
+/dev/root        29G   24G  5.7G  81% /vscode
+/dev/sdb1        44G  2.2G   40G   6% /tmp
+/dev/loop4       32G  9.6G   21G  33% /workspaces
+
+Inode usage (`df -i`):
+Filesystem      Inodes  IUsed   IFree IUse% Mounted on
+overlay        2097152 203042 1894110   10% /
+tmpfs          1016900    213 1016687    1% /dev
+shm            1016900      1 1016899    1% /dev/shm
+/dev/root      3870720 243379 3627341    7% /vscode
+/dev/sdb1      2949120     34 2949086    1% /tmp
+
+Storage health observations and recommendations:
+- Root filesystem (`/vscode`) shows 81% usage; monitor and clean large unused files to avoid running out of space.
+- `/tmp` and overlay mounts have ample capacity; inode usage is low across mounts.
+- Recommend regular cleanup of build artifacts, rotating logs, and using disk quotas or monitoring to prevent unexpected full disks.
+
